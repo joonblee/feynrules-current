@@ -1,0 +1,102 @@
+(* ****************************************************************** *)
+(* *****  FeynRules model file TEMPLATE in this tutorial	***** *)
+(* *****  You can find out the answer to this tutorial from:    ***** *)
+(* ****	  https://feynrules.irmp.ucl.ac.be/wiki/DMsimp 		***** *)
+(* ***	  							***** *)
+(* *****  FeynRules model file: Simplified DM models            ***** *)
+(* *****                        s-channel spin-1 mediator       ***** *)
+(* *****  Author: A. Martini, K. Mawatari                       ***** *)
+(* *****          J. Wang, C.Zhang (EW)                         ***** *)
+(* *****          B. Zaldivar (lepton)                          ***** *)
+(* *****          B. Fuks (monotop)                             ***** *)
+(* *****                                                        ***** *)
+(* ****************************************************************** *)
+
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+
+M$ModelName = "RKZp";
+
+M$Information = {
+    Authors -> "Joon-Bin Lee",
+    Institutions -> "Seoul National University (SNU)",
+    Emails -> "joon.bin.lee@cern.ch",
+    URLs -> "https://doi.org/10.1140/epjc/s10052-020-7810-4",
+    References -> {"Associated Z' production in the flavorful U(1) scenario for RK*"},
+    Version -> "1.0",
+    Date -> "08.11.2023"
+};
+
+(* ************************** *)
+(* *****  Change  log   ***** *)
+(* ************************** *)
+
+(* 2022.10.13 v1.0 - release version. !This is just a tutorial following the DMsimp model file that is written in the top!  *)
+
+(***** Setting for interaction order (as e.g. used by MadGraph 5)  ******)
+
+M$InteractionOrderLimit = {
+  {BSMU1, 2} (* BSMU1 coupling is only considered upto the order 2 *)
+};
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1}, {BSMU1, 2}, {QED, 2} (* BSMU1 has same order with QED *)
+}
+
+(* ************************** *)
+(* *****     Fields     ***** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+  V[7] == { ClassName -> Zp,
+            SelfConjugate -> True,
+            Mass -> {MZp, 10.},
+            Width -> {WZp, 2.5},
+            PDG -> 32,
+            Tex -> Z',
+            FullName -> "Z'" }
+};
+
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)  
+
+M$Parameters = {
+
+  gbb == { ParameterType -> External,
+            InteractionOrder -> {BSMU1, 1},
+            BlockName -> BSMINPUTS,
+            Tex -> Subscript[g, bb],
+            Description -> "Zp coupling with bb",
+            Value -> 1. },
+
+  gbs == { ParameterType -> External,
+            InteractionOrder -> {BSMU1, 1},
+            BlockName -> BSMINPUTS,
+            Tex -> Subscript[g, bs],
+            Description -> "Zp coupling with bs",
+            Value -> 0.04 gbb },
+
+  gmm == { ParameterType -> External,
+            InteractionOrder -> {BSMU1, 1},
+            BlockName -> BSMINPUTS,
+            Tex -> Subscript[g, mm],
+            Description -> "Zp coupling with dimuon",
+            Value -> 1. }
+
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+LZp := left[tbar].Ga[mu].gbb.left[t] Zp[mu] +
+       left[bbar].Ga[mu].gbb.left[b] Zp[mu] +
+       left[bbar].Ga[mu].gbs.left[s] Zp[mu] +
+       HC[left[bbar].Ga[mu].gbs.left[s] Zp[mu]] +
+       left[vmbar].Ga[mu].gmm.left[vm] Zp[mu] +
+       left[mubar].Ga[mu].gmm.left[mu] Zp[mu];
+
