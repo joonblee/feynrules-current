@@ -73,7 +73,7 @@ M$Parameters = {
             Description -> "Zp coupling with bb",
             Value -> 1. },
 
-  gbs == { ParameterType -> External,
+  gbs == { ParameterType -> Internal,
             InteractionOrder -> {BSMU1, 1},
             BlockName -> BSMINPUTS,
             Tex -> Subscript[g, bs],

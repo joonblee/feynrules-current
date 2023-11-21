@@ -1,6 +1,6 @@
 # This file was automatically created by FeynRules 2.3.49
 # Mathematica version: 13.1.0 for Mac OS X ARM (64-bit) (June 16, 2022)
-# Date: Mon 13 Nov 2023 18:42:06
+# Date: Tue 21 Nov 2023 18:20:22
 
 
 
@@ -25,21 +25,13 @@ gbb = Parameter(name = 'gbb',
                 lhablock = 'BSMINPUTS',
                 lhacode = [ 1 ])
 
-gbs = Parameter(name = 'gbs',
-                nature = 'external',
-                type = 'real',
-                value = 0.04*gbb,
-                texname = '\\text{gbs}',
-                lhablock = 'BSMINPUTS',
-                lhacode = [ 2 ])
-
 gmm = Parameter(name = 'gmm',
                 nature = 'external',
                 type = 'real',
                 value = 1.,
                 texname = '\\text{gmm}',
                 lhablock = 'BSMINPUTS',
-                lhacode = [ 3 ])
+                lhacode = [ 2 ])
 
 aEWM1 = Parameter(name = 'aEWM1',
                   nature = 'external',
@@ -188,6 +180,12 @@ G = Parameter(name = 'G',
               type = 'real',
               value = '2*cmath.sqrt(aS)*cmath.sqrt(cmath.pi)',
               texname = 'G')
+
+gbs = Parameter(name = 'gbs',
+                nature = 'internal',
+                type = 'real',
+                value = '0.04*gbb',
+                texname = '\\text{gbs}')
 
 MW = Parameter(name = 'MW',
                nature = 'internal',
